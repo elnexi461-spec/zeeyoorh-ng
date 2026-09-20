@@ -163,12 +163,23 @@ function Index() {
   useEffect(() => {
     const nodes = document.querySelectorAll<HTMLElement>(".reveal");
     const observer = new IntersectionObserver(
-      (entries) => entries.forEach((entry) => entry.isIntersecting && entry.target.classList.add("is-visible")),
-      { threshold: 0.13 },
+      (entries) =>
+        entries.forEach((entry) => {
+          const el = entry.target as HTMLElement;
+          el.classList.remove("is-leaving-up", "is-leaving-down");
+          if (entry.isIntersecting) {
+            el.classList.add("is-visible");
+            return;
+          }
+          el.classList.remove("is-visible");
+          const above = entry.boundingClientRect.top < 0;
+          el.classList.add(above ? "is-leaving-up" : "is-leaving-down");
+        }),
+      { threshold: 0.12, rootMargin: "-6% 0px -6% 0px" },
     );
     nodes.forEach((node) => observer.observe(node));
     return () => observer.disconnect();
-  }, []);
+  }, [activeCategory]);
 
   const whatsappHref = "https://wa.me/";
   const instagramHref = "https://instagram.com/";
