@@ -20,7 +20,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import manAsset from "@/assets/IMG_2515.jpg.asset.json";
 import blackFabricAsset from "@/assets/IMG-20260223-WA0155.JPG.asset.json";
 import whiteFabricAsset from "@/assets/IMG-20260223-WA0160.JPG.asset.json";
 import taupeFabricAsset from "@/assets/IMG-20260223-WA0153.JPG.asset.json";
