@@ -214,7 +214,7 @@
 }
 
 @media (max-width: 767px) {
-  .section-space { padding-top: 6rem; padding-bottom: 6rem; }
+  .section-space { padding-top: 3.75rem; padding-bottom: 3.75rem; }
   .hero-fade { background: linear-gradient(0deg, var(--color-background) 4%, color-mix(in oklab, var(--color-background) 78%, transparent) 48%, color-mix(in oklab, var(--color-background) 16%, transparent) 100%); }
 }
 
