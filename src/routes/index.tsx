@@ -1,9 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import {
   ArrowDownRight,
-  Check,
   Gem,
+  Images,
   Instagram,
   MessageCircle,
   PackageCheck,
@@ -20,25 +20,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import blackFabricAsset from "@/assets/IMG-20260223-WA0155.JPG.asset.json";
-import whiteFabricAsset from "@/assets/IMG-20260223-WA0160.JPG.asset.json";
-import taupeFabricAsset from "@/assets/IMG-20260223-WA0153.JPG.asset.json";
-import shoeBlackAsset from "@/assets/IMG_0513.PNG.asset.json";
-import shoeBlueAsset from "@/assets/IMG_0514.PNG.asset.json";
-import shoeGreyAsset from "@/assets/IMG_0515.PNG.asset.json";
-import capBlueAsset from "@/assets/18C79ADB-985B-4D54-A78E-0218233F5BB8.JPG.asset.json";
-import capWhiteAsset from "@/assets/8DFE5BE1-E1CB-45A0-8346-6433990605BB.JPG.asset.json";
-import capSizeAsset from "@/assets/D7598292-141C-40CF-9134-E4E9969509E8.JPG.asset.json";
-import shirtWhiteAsset from "@/assets/IMG_0401.PNG.asset.json";
-import shirtGreyAsset from "@/assets/IMG_0402.PNG.asset.json";
-import shirtStripeAsset from "@/assets/IMG_0399.PNG.asset.json";
-import shirtPlumAsset from "@/assets/IMG_0404.PNG.asset.json";
-import watchPairAsset from "@/assets/3205712d-242e-41d8-af2a-a50de65eb389.jpg.asset.json";
-import watchSquareAsset from "@/assets/6a129338-ddda-4adb-bffc-ec41c723d1e3.jpg.asset.json";
-import watchGreenAsset from "@/assets/9fd628a5-6a70-410f-9e9b-98fffb3a0213.jpg.asset.json";
-import shaddaGoldAsset from "@/assets/IMG-20260223-WA0101.JPG.asset.json";
-import shaddaGreyAsset from "@/assets/IMG-20260223-WA0097.JPG.asset.json";
-import shaddaWhiteAsset from "@/assets/IMG-20260223-WA0102.JPG.asset.json";
+import { allCatalogImages } from "@/lib/catalog";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -60,68 +42,6 @@ export const Route = createFileRoute("/")({
   }),
   component: Index,
 });
-
-type CategoryKey = "Clothing" | "Shoes" | "Watches" | "Native Caps" | "Shadda";
-
-const categories: Record<
-  CategoryKey,
-  { eyebrow: string; description: string; images: { src: string; alt: string }[]; pending?: boolean }
-> = {
-  Clothing: {
-    eyebrow: "Precision tailoring",
-    description:
-      "Refined kaftans, mandarin-collar shirts and premium fabrics selected for presence, comfort and an impeccable finish.",
-    images: [
-      { src: shirtWhiteAsset.url, alt: "White pinstripe mandarin-collar shirt on a tailor's form" },
-      { src: shirtGreyAsset.url, alt: "Grey pinstripe mandarin-collar shirt on a tailor's form" },
-      { src: shirtStripeAsset.url, alt: "Striped mandarin-collar shirt on a tailor's form" },
-      { src: shirtPlumAsset.url, alt: "Plum ribbed mandarin-collar shirt on a tailor's form" },
-      { src: whiteFabricAsset.url, alt: "Premium white fabric arranged in soft folds" },
-      { src: taupeFabricAsset.url, alt: "Premium taupe fabric arranged in soft folds" },
-      { src: blackFabricAsset.url, alt: "Premium black fabric arranged in soft folds" },
-    ],
-  },
-  Shoes: {
-    eyebrow: "Everyday distinction",
-    description:
-      "Statement slides chosen for effortless comfort, strong silhouettes and a confident finish.",
-    images: [
-      { src: shoeBlueAsset.url, alt: "Blue luxury slide displayed by hand" },
-      { src: shoeGreyAsset.url, alt: "Grey luxury slide displayed by hand" },
-      { src: shoeBlackAsset.url, alt: "Selection of black premium slides" },
-    ],
-  },
-  Watches: {
-    eyebrow: "Measured in moments",
-    description:
-      "Steel timepieces with clean dials and quiet weight, chosen to finish an outfit without shouting.",
-    images: [
-      { src: watchPairAsset.url, alt: "Blue and black dial steel watches presented in a gift box" },
-      { src: watchGreenAsset.url, alt: "Green dial steel watch presented in a branded box" },
-      { src: watchSquareAsset.url, alt: "Square-case steel watch with a white roman dial" },
-    ],
-  },
-  "Native Caps": {
-    eyebrow: "The finishing signature",
-    description:
-      "Crisp, structured caps in classic and expressive colours, measured for a composed fit.",
-    images: [
-      { src: capWhiteAsset.url, alt: "White native caps displayed on gold head forms" },
-      { src: capBlueAsset.url, alt: "Blue native caps displayed on gold head forms" },
-      { src: capSizeAsset.url, alt: "Native cap inserts showing size 22" },
-    ],
-  },
-  Shadda: {
-    eyebrow: "Exceptional cloth",
-    description:
-      "Richly patterned Shadda selected for its hand, lustre and unmistakable ceremonial presence.",
-    images: [
-      { src: shaddaGoldAsset.url, alt: "Gold patterned Shadda fabric folded on display" },
-      { src: shaddaWhiteAsset.url, alt: "White patterned Shadda fabric folded on display" },
-      { src: shaddaGreyAsset.url, alt: "Soft grey patterned Shadda fabric folded on display" },
-    ],
-  },
-};
 
 const features = [
   { icon: Gem, title: "Curated quality", text: "Every piece is considered for finish, feel and lasting appeal." },
@@ -172,22 +92,19 @@ function BackgroundSlideshow({ images, index }: { images: { src: string; alt: st
 }
 
 function Index() {
-  const [activeCategory, setActiveCategory] = useState<CategoryKey>("Clothing");
   const [backgroundIndex, setBackgroundIndex] = useState(0);
-  const category = categories[activeCategory];
 
   useEffect(() => {
-    setBackgroundIndex(0);
-  }, [activeCategory]);
-
-  useEffect(() => {
-    if (category.images.length < 2) return;
+    if (allCatalogImages.length < 2) return;
     const id = window.setInterval(
-      () => setBackgroundIndex((current) => (current + 1) % category.images.length),
+      () => setBackgroundIndex((current) => {
+        const offset = 1 + Math.floor(Math.random() * (allCatalogImages.length - 1));
+        return (current + offset) % allCatalogImages.length;
+      }),
       3600,
     );
     return () => window.clearInterval(id);
-  }, [category.images.length]);
+  }, []);
 
   useEffect(() => {
     const nodes = document.querySelectorAll<HTMLElement>(".reveal");
@@ -208,19 +125,19 @@ function Index() {
     );
     nodes.forEach((node) => observer.observe(node));
     return () => observer.disconnect();
-  }, [activeCategory]);
+  }, []);
 
   const whatsappHref = "https://wa.me/2349168747325";
   const instagramHref = "https://instagram.com/zeyoorh.ng";
 
   return (
     <main className="relative min-h-screen overflow-x-hidden text-foreground">
-      <BackgroundSlideshow images={category.images} index={backgroundIndex} />
+      <BackgroundSlideshow images={allCatalogImages} index={backgroundIndex} />
       <nav className="fixed inset-x-0 top-0 z-50 border-b border-foreground/10 bg-background/55 backdrop-blur-xl">
         <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-5 lg:px-10">
           <a href="#top" className="font-display text-2xl font-semibold text-foreground">Zeyoorh<span className="text-primary">.ng</span></a>
           <div className="hidden items-center gap-9 text-sm text-muted-foreground md:flex">
-            <a className="nav-link" href="#categories">Categories</a>
+            <Link className="nav-link" to="/gallery">Gallery</Link>
             <a className="nav-link" href="#about">About</a>
             <a className="nav-link" href="#faq">FAQ</a>
           </div>
@@ -244,6 +161,9 @@ function Index() {
               </Button>
               <Button asChild size="lg" variant="outline" className="h-13 rounded-full border-border bg-transparent px-7 shadow-none transition-transform hover:scale-[1.03] hover:bg-foreground hover:text-background">
                 <a href={instagramHref} target="_blank" rel="noreferrer"><Instagram />View Instagram</a>
+              </Button>
+              <Button asChild size="lg" variant="secondary" className="h-13 rounded-full border border-primary/60 px-7 shadow-none transition-transform hover:scale-[1.03]">
+                <Link to="/gallery"><Images />View Gallery</Link>
               </Button>
             </div>
           </div>
@@ -269,36 +189,12 @@ function Index() {
       </section>
 
       <section id="categories" className="section-space relative z-10 mx-auto max-w-7xl px-5 lg:px-10">
-        <Reveal><SectionHeading label="The collection" title="The essentials, considered." description="Explore a focused collection shaped by craft, character and enduring style." /></Reveal>
-        <div role="tablist" aria-label="Product categories" className="mt-8 grid grid-cols-2 gap-2 sm:mt-12 sm:flex sm:flex-wrap">
-          {(Object.keys(categories) as CategoryKey[]).map((name) => (
-            <Button key={name} role="tab" aria-selected={activeCategory === name} onClick={() => setActiveCategory(name)} variant={activeCategory === name ? "default" : "outline"} className="w-full rounded-full border-border px-3 shadow-none transition-transform hover:scale-[1.03] sm:w-auto sm:px-5">
-              {name}
-            </Button>
-          ))}
-        </div>
-        <div key={activeCategory} className="category-enter mt-9 sm:mt-12">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">{category.eyebrow}</p>
-          <p className="mt-4 max-w-2xl font-display text-3xl leading-tight text-foreground md:text-4xl">{category.description}</p>
-          <div className="mt-8 flex flex-wrap items-center gap-3 sm:mt-10">
-            {category.images.map((image, imageIndex) => (
-              <Button
-                key={image.src}
-                type="button"
-                variant="ghost"
-                size="icon"
-                aria-label={`Show ${image.alt} as the background`}
-                onClick={() => setBackgroundIndex(imageIndex)}
-                className={`h-7 w-10 rounded-none border-b p-0 shadow-none transition-all duration-500 hover:bg-transparent ${imageIndex === backgroundIndex ? "w-16 border-primary" : "border-border"}`}
-              >
-                <span className="sr-only">{imageIndex + 1}</span>
-              </Button>
-            ))}
-            <p className="ml-auto text-xs uppercase tracking-[0.18em] text-muted-foreground">
-              {String(backgroundIndex + 1).padStart(2, "0")} / {String(category.images.length).padStart(2, "0")}
-            </p>
-          </div>
-        </div>
+        <Reveal>
+          <SectionHeading label="The collection" title="The essentials, considered." description="Explore clothing, shoes, watches, native caps and Shadda, then select the piece you want to ask about." />
+          <Button asChild size="lg" className="mt-8 h-14 rounded-full px-8 text-sm uppercase tracking-widest shadow-none transition-transform hover:scale-[1.03]">
+            <Link to="/gallery"><Images />Open the Gallery</Link>
+          </Button>
+        </Reveal>
       </section>
 
       <section className="section-space relative z-10 mx-auto max-w-7xl px-5 lg:px-10">
@@ -363,7 +259,7 @@ function Index() {
       <footer className="relative z-10 border-t border-border px-5 py-10 lg:px-10">
         <div className="mx-auto flex max-w-7xl flex-col gap-7 md:flex-row md:items-center md:justify-between">
           <div><a href="#top" className="font-display text-2xl font-semibold">Zeyoorh<span className="text-primary">.ng</span></a><p className="mt-2 text-xs text-muted-foreground">© 2026 Zeyoorh.ng. All rights reserved.</p></div>
-          <div className="flex flex-wrap gap-x-7 gap-y-3 text-sm text-muted-foreground"><a className="nav-link" href="#categories">Categories</a><a className="nav-link" href="#about">About</a><a className="nav-link" href="#faq">FAQ</a><a className="nav-link" href={instagramHref} target="_blank" rel="noreferrer">Instagram</a><a className="nav-link" href={whatsappHref} target="_blank" rel="noreferrer">WhatsApp</a></div>
+          <div className="flex flex-wrap gap-x-7 gap-y-3 text-sm text-muted-foreground"><Link className="nav-link" to="/gallery">Gallery</Link><a className="nav-link" href="#about">About</a><a className="nav-link" href="#faq">FAQ</a><a className="nav-link" href={instagramHref} target="_blank" rel="noreferrer">Instagram</a><a className="nav-link" href={whatsappHref} target="_blank" rel="noreferrer">WhatsApp</a></div>
         </div>
       </footer>
     </main>
