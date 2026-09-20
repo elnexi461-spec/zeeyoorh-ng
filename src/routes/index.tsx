@@ -30,6 +30,16 @@ import shoeGreyAsset from "@/assets/IMG_0515.PNG.asset.json";
 import capBlueAsset from "@/assets/18C79ADB-985B-4D54-A78E-0218233F5BB8.JPG.asset.json";
 import capWhiteAsset from "@/assets/8DFE5BE1-E1CB-45A0-8346-6433990605BB.JPG.asset.json";
 import capSizeAsset from "@/assets/D7598292-141C-40CF-9134-E4E9969509E8.JPG.asset.json";
+import shirtWhiteAsset from "@/assets/IMG_0401.PNG.asset.json";
+import shirtGreyAsset from "@/assets/IMG_0402.PNG.asset.json";
+import shirtStripeAsset from "@/assets/IMG_0399.PNG.asset.json";
+import shirtPlumAsset from "@/assets/IMG_0404.PNG.asset.json";
+import watchPairAsset from "@/assets/3205712d-242e-41d8-af2a-a50de65eb389.jpg.asset.json";
+import watchSquareAsset from "@/assets/6a129338-ddda-4adb-bffc-ec41c723d1e3.jpg.asset.json";
+import watchGreenAsset from "@/assets/9fd628a5-6a70-410f-9e9b-98fffb3a0213.jpg.asset.json";
+import shaddaGoldAsset from "@/assets/IMG-20260223-WA0101.JPG.asset.json";
+import shaddaGreyAsset from "@/assets/IMG-20260223-WA0097.JPG.asset.json";
+import shaddaWhiteAsset from "@/assets/IMG-20260223-WA0102.JPG.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -61,9 +71,13 @@ const categories: Record<
   Clothing: {
     eyebrow: "Precision tailoring",
     description:
-      "Refined kaftans and premium fabrics selected for presence, comfort and an impeccable finish.",
+      "Refined kaftans, mandarin-collar shirts and premium fabrics selected for presence, comfort and an impeccable finish.",
     images: [
       { src: manAsset.url, alt: "Man wearing a white traditional outfit and patterned native cap" },
+      { src: shirtWhiteAsset.url, alt: "White pinstripe mandarin-collar shirt on a tailor's form" },
+      { src: shirtGreyAsset.url, alt: "Grey pinstripe mandarin-collar shirt on a tailor's form" },
+      { src: shirtStripeAsset.url, alt: "Striped mandarin-collar shirt on a tailor's form" },
+      { src: shirtPlumAsset.url, alt: "Plum ribbed mandarin-collar shirt on a tailor's form" },
       { src: whiteFabricAsset.url, alt: "Premium white fabric arranged in soft folds" },
       { src: taupeFabricAsset.url, alt: "Premium taupe fabric arranged in soft folds" },
       { src: blackFabricAsset.url, alt: "Premium black fabric arranged in soft folds" },
@@ -80,11 +94,14 @@ const categories: Record<
     ],
   },
   Watches: {
-    eyebrow: "Coming to the collection",
+    eyebrow: "Measured in moments",
     description:
-      "A considered edit of timepieces is being prepared. Original collection photography will be added soon.",
-    images: [],
-    pending: true,
+      "Steel timepieces with clean dials and quiet weight, chosen to finish an outfit without shouting.",
+    images: [
+      { src: watchPairAsset.url, alt: "Blue and black dial steel watches presented in a gift box" },
+      { src: watchGreenAsset.url, alt: "Green dial steel watch presented in a branded box" },
+      { src: watchSquareAsset.url, alt: "Square-case steel watch with a white roman dial" },
+    ],
   },
   "Native Caps": {
     eyebrow: "The finishing signature",
@@ -100,8 +117,11 @@ const categories: Record<
     eyebrow: "Exceptional cloth",
     description:
       "Richly patterned Shadda selected for its hand, lustre and unmistakable ceremonial presence.",
-    images: [],
-    pending: true,
+    images: [
+      { src: shaddaGoldAsset.url, alt: "Gold patterned Shadda fabric folded on display" },
+      { src: shaddaWhiteAsset.url, alt: "White patterned Shadda fabric folded on display" },
+      { src: shaddaGreyAsset.url, alt: "Soft grey patterned Shadda fabric folded on display" },
+    ],
   },
 };
 
