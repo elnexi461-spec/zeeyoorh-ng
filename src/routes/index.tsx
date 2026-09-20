@@ -156,6 +156,46 @@ function Reveal({ children, className = "", delay = 0 }: { children: React.React
   );
 }
 
+function CategoryShowcase({ images }: { images: { src: string; alt: string }[] }) {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    if (images.length < 2) return;
+    const id = window.setInterval(() => setIndex((i) => (i + 1) % images.length), 3600);
+    return () => window.clearInterval(id);
+  }, [images.length]);
+
+  return (
+    <div className="mt-14">
+      <div className="relative aspect-[4/5] w-full overflow-hidden sm:aspect-[16/10]">
+        {images.map((image, i) => (
+          <img
+            key={image.src}
+            src={image.src}
+            alt={image.alt}
+            loading={i === 0 ? "eager" : "lazy"}
+            className={`fade-slide h-full w-full object-cover ${i === index ? "is-active" : ""}`}
+          />
+        ))}
+      </div>
+      <div className="mt-6 flex flex-wrap items-center gap-3">
+        {images.map((image, i) => (
+          <button
+            key={image.src}
+            type="button"
+            aria-label={image.alt}
+            onClick={() => setIndex(i)}
+            className={`h-px w-10 transition-all duration-500 ${i === index ? "bg-primary w-16" : "bg-border"}`}
+          />
+        ))}
+        <p className="ml-auto text-xs uppercase tracking-[0.18em] text-muted-foreground">
+          {String(index + 1).padStart(2, "0")} / {String(images.length).padStart(2, "0")}
+        </p>
+      </div>
+    </div>
+  );
+}
+
 function Index() {
   const [activeCategory, setActiveCategory] = useState<CategoryKey>("Clothing");
   const category = categories[activeCategory];
