@@ -73,7 +73,6 @@ const categories: Record<
     description:
       "Refined kaftans, mandarin-collar shirts and premium fabrics selected for presence, comfort and an impeccable finish.",
     images: [
-      { src: manAsset.url, alt: "Man wearing a white traditional outfit and patterned native cap" },
       { src: shirtWhiteAsset.url, alt: "White pinstripe mandarin-collar shirt on a tailor's form" },
       { src: shirtGreyAsset.url, alt: "Grey pinstripe mandarin-collar shirt on a tailor's form" },
       { src: shirtStripeAsset.url, alt: "Striped mandarin-collar shirt on a tailor's form" },
@@ -166,7 +165,7 @@ function CategoryShowcase({ images }: { images: { src: string; alt: string }[] }
   }, [images.length]);
 
   return (
-    <div className="mt-14">
+    <div className="mt-10 sm:mt-14">
       <div className="relative aspect-[4/5] w-full overflow-hidden sm:aspect-[16/10]">
         {images.map((image, i) => (
           <img
@@ -265,7 +264,7 @@ function Index() {
 
       <section id="how" className="section-space mx-auto max-w-7xl px-5 lg:px-10">
         <Reveal><SectionHeading label="The process" title="Personal from first word to final detail." /></Reveal>
-        <div className="mt-16 grid gap-12 md:grid-cols-3 md:gap-10">
+        <div className="mt-10 grid gap-8 sm:mt-16 md:grid-cols-3 md:gap-10">
           {[
             ["01", "Share your taste", "Tell us the occasion, your preferences and what you want your wardrobe to say."],
             ["02", "Receive a private edit", "We narrow the collection to considered pieces selected specifically for you."],
@@ -273,7 +272,7 @@ function Index() {
           ].map(([number, title, text], index) => (
             <Reveal key={number} delay={index * 140} className="border-t border-border pt-6">
               <span className="text-xs tracking-[0.2em] text-primary">{number}</span>
-              <h3 className="mt-10 font-display text-3xl font-semibold">{title}</h3>
+              <h3 className="mt-6 font-display text-3xl font-semibold sm:mt-10">{title}</h3>
               <p className="mt-4 max-w-sm leading-7 text-muted-foreground">{text}</p>
             </Reveal>
           ))}
@@ -282,14 +281,14 @@ function Index() {
 
       <section id="categories" className="section-space mx-auto max-w-7xl px-5 lg:px-10">
         <Reveal><SectionHeading label="The collection" title="The essentials, considered." description="Explore a focused collection shaped by craft, character and enduring style." /></Reveal>
-        <div role="tablist" aria-label="Product categories" className="mt-12 flex gap-2 overflow-x-auto pb-3 scrollbar-none">
+        <div role="tablist" aria-label="Product categories" className="mt-8 grid grid-cols-2 gap-2 sm:mt-12 sm:flex sm:flex-wrap">
           {(Object.keys(categories) as CategoryKey[]).map((name) => (
-            <Button key={name} role="tab" aria-selected={activeCategory === name} onClick={() => setActiveCategory(name)} variant={activeCategory === name ? "default" : "outline"} className="shrink-0 rounded-full border-border px-5 shadow-none transition-transform hover:scale-[1.03]">
+            <Button key={name} role="tab" aria-selected={activeCategory === name} onClick={() => setActiveCategory(name)} variant={activeCategory === name ? "default" : "outline"} className="w-full rounded-full border-border px-3 shadow-none transition-transform hover:scale-[1.03] sm:w-auto sm:px-5">
               {name}
             </Button>
           ))}
         </div>
-        <div key={activeCategory} className="category-enter mt-12">
+        <div key={activeCategory} className="category-enter mt-9 sm:mt-12">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">{category.eyebrow}</p>
           <p className="mt-4 max-w-2xl font-display text-3xl leading-tight text-foreground md:text-4xl">{category.description}</p>
           {category.pending ? (
@@ -304,7 +303,7 @@ function Index() {
 
       <section className="section-space mx-auto max-w-7xl px-5 lg:px-10">
         <Reveal><SectionHeading label="The Zeyoorh standard" title="What you can expect." /></Reveal>
-        <div className="mt-16 grid gap-x-12 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-x-12 gap-y-10 sm:mt-16 sm:gap-y-14 md:grid-cols-2 lg:grid-cols-3">
           {features.map(({ icon: Icon, title, text }, index) => (
             <Reveal key={title} delay={(index % 3) * 100} className="flex gap-5">
               <Icon className="mt-1 size-5 shrink-0 text-primary" strokeWidth={1.5} />
