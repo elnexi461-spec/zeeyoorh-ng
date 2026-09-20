@@ -220,8 +220,8 @@ function Index() {
     return () => observer.disconnect();
   }, [activeCategory]);
 
-  const whatsappHref = "https://wa.me/";
-  const instagramHref = "https://instagram.com/";
+  const whatsappHref = "https://wa.me/2349168747325";
+  const instagramHref = "https://instagram.com/zeyoorh.ng";
 
   return (
     <main className="min-h-screen overflow-x-hidden bg-background text-foreground">
