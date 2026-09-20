@@ -20,7 +20,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import manAsset from "@/assets/IMG_2515.jpg.asset.json";
 import blackFabricAsset from "@/assets/IMG-20260223-WA0155.JPG.asset.json";
 import whiteFabricAsset from "@/assets/IMG-20260223-WA0160.JPG.asset.json";
 import taupeFabricAsset from "@/assets/IMG-20260223-WA0153.JPG.asset.json";
@@ -155,49 +154,40 @@ function Reveal({ children, className = "", delay = 0 }: { children: React.React
   );
 }
 
-function CategoryShowcase({ images }: { images: { src: string; alt: string }[] }) {
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    if (images.length < 2) return;
-    const id = window.setInterval(() => setIndex((i) => (i + 1) % images.length), 3600);
-    return () => window.clearInterval(id);
-  }, [images.length]);
-
+function BackgroundSlideshow({ images, index }: { images: { src: string; alt: string }[]; index: number }) {
   return (
-    <div className="mt-10 sm:mt-14">
-      <div className="relative aspect-[4/5] w-full overflow-hidden sm:aspect-[16/10]">
-        {images.map((image, i) => (
-          <img
-            key={image.src}
-            src={image.src}
-            alt={image.alt}
-            loading={i === 0 ? "eager" : "lazy"}
-            className={`fade-slide h-full w-full object-cover ${i === index ? "is-active" : ""}`}
-          />
-        ))}
-      </div>
-      <div className="mt-6 flex flex-wrap items-center gap-3">
-        {images.map((image, i) => (
-          <button
-            key={image.src}
-            type="button"
-            aria-label={image.alt}
-            onClick={() => setIndex(i)}
-            className={`h-px w-10 transition-all duration-500 ${i === index ? "bg-primary w-16" : "bg-border"}`}
-          />
-        ))}
-        <p className="ml-auto text-xs uppercase tracking-[0.18em] text-muted-foreground">
-          {String(index + 1).padStart(2, "0")} / {String(images.length).padStart(2, "0")}
-        </p>
-      </div>
+    <div className="fixed inset-0 z-0 overflow-hidden" aria-hidden="true">
+      {images.map((image, imageIndex) => (
+        <img
+          key={image.src}
+          src={image.src}
+          alt=""
+          loading={imageIndex === 0 ? "eager" : "lazy"}
+          className={`page-background-slide ${imageIndex === index ? "is-active" : ""}`}
+        />
+      ))}
+      <div className="page-background-veil absolute inset-0" />
     </div>
   );
 }
 
 function Index() {
   const [activeCategory, setActiveCategory] = useState<CategoryKey>("Clothing");
+  const [backgroundIndex, setBackgroundIndex] = useState(0);
   const category = categories[activeCategory];
+
+  useEffect(() => {
+    setBackgroundIndex(0);
+  }, [activeCategory]);
+
+  useEffect(() => {
+    if (category.images.length < 2) return;
+    const id = window.setInterval(
+      () => setBackgroundIndex((current) => (current + 1) % category.images.length),
+      3600,
+    );
+    return () => window.clearInterval(id);
+  }, [category.images.length]);
 
   useEffect(() => {
     const nodes = document.querySelectorAll<HTMLElement>(".reveal");
@@ -224,8 +214,9 @@ function Index() {
   const instagramHref = "https://instagram.com/zeyoorh.ng";
 
   return (
-    <main className="min-h-screen overflow-x-hidden bg-background text-foreground">
-      <nav className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-background/85 backdrop-blur-xl">
+    <main className="relative min-h-screen overflow-x-hidden text-foreground">
+      <BackgroundSlideshow images={category.images} index={backgroundIndex} />
+      <nav className="fixed inset-x-0 top-0 z-50 border-b border-foreground/10 bg-background/55 backdrop-blur-xl">
         <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-5 lg:px-10">
           <a href="#top" className="font-display text-2xl font-semibold text-foreground">Zeyoorh<span className="text-primary">.ng</span></a>
           <div className="hidden items-center gap-9 text-sm text-muted-foreground md:flex">
@@ -239,9 +230,7 @@ function Index() {
         </div>
       </nav>
 
-      <section id="top" className="hero-pattern relative flex min-h-[100svh] items-end overflow-hidden pt-24">
-        <img src={manAsset.url} alt="Zeyoorh client in refined white traditional clothing" className="absolute inset-0 h-full w-full object-cover object-[57%_20%] opacity-60 md:left-auto md:w-[58%] md:object-[50%_24%] md:opacity-90" />
-        <div className="hero-fade absolute inset-0" />
+      <section id="top" className="relative z-10 flex min-h-[100svh] items-end overflow-hidden pt-24">
         <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-16 pt-32 lg:px-10 lg:pb-20">
           <div className="max-w-3xl">
             <div className="mb-7 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-primary">
@@ -262,7 +251,7 @@ function Index() {
         <a href="#how" aria-label="Scroll to how it works" className="absolute bottom-7 right-6 z-20 hidden items-center gap-2 text-xs uppercase tracking-widest text-muted-foreground md:flex">Discover <ArrowDownRight className="size-4" /></a>
       </section>
 
-      <section id="how" className="section-space mx-auto max-w-7xl px-5 lg:px-10">
+      <section id="how" className="section-space relative z-10 mx-auto max-w-7xl px-5 lg:px-10">
         <Reveal><SectionHeading label="The process" title="Personal from first word to final detail." /></Reveal>
         <div className="mt-10 grid gap-8 sm:mt-16 md:grid-cols-3 md:gap-10">
           {[
@@ -279,7 +268,7 @@ function Index() {
         </div>
       </section>
 
-      <section id="categories" className="section-space mx-auto max-w-7xl px-5 lg:px-10">
+      <section id="categories" className="section-space relative z-10 mx-auto max-w-7xl px-5 lg:px-10">
         <Reveal><SectionHeading label="The collection" title="The essentials, considered." description="Explore a focused collection shaped by craft, character and enduring style." /></Reveal>
         <div role="tablist" aria-label="Product categories" className="mt-8 grid grid-cols-2 gap-2 sm:mt-12 sm:flex sm:flex-wrap">
           {(Object.keys(categories) as CategoryKey[]).map((name) => (
@@ -291,17 +280,28 @@ function Index() {
         <div key={activeCategory} className="category-enter mt-9 sm:mt-12">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">{category.eyebrow}</p>
           <p className="mt-4 max-w-2xl font-display text-3xl leading-tight text-foreground md:text-4xl">{category.description}</p>
-          {category.pending ? (
-            <div className="mt-20 flex min-h-72 items-center justify-center border-y border-border px-6 py-16 text-center">
-              <div><Sparkles className="mx-auto size-5 text-primary" /><p className="mt-6 font-display text-3xl">Collection photography arriving soon.</p><p className="mt-4 text-sm text-muted-foreground">The selection is being prepared with care.</p></div>
-            </div>
-          ) : (
-            <CategoryShowcase key={activeCategory} images={category.images} />
-          )}
+          <div className="mt-8 flex flex-wrap items-center gap-3 sm:mt-10">
+            {category.images.map((image, imageIndex) => (
+              <Button
+                key={image.src}
+                type="button"
+                variant="ghost"
+                size="icon"
+                aria-label={`Show ${image.alt} as the background`}
+                onClick={() => setBackgroundIndex(imageIndex)}
+                className={`h-7 w-10 rounded-none border-b p-0 shadow-none transition-all duration-500 hover:bg-transparent ${imageIndex === backgroundIndex ? "w-16 border-primary" : "border-border"}`}
+              >
+                <span className="sr-only">{imageIndex + 1}</span>
+              </Button>
+            ))}
+            <p className="ml-auto text-xs uppercase tracking-[0.18em] text-muted-foreground">
+              {String(backgroundIndex + 1).padStart(2, "0")} / {String(category.images.length).padStart(2, "0")}
+            </p>
+          </div>
         </div>
       </section>
 
-      <section className="section-space mx-auto max-w-7xl px-5 lg:px-10">
+      <section className="section-space relative z-10 mx-auto max-w-7xl px-5 lg:px-10">
         <Reveal><SectionHeading label="The Zeyoorh standard" title="What you can expect." /></Reveal>
         <div className="mt-10 grid gap-x-12 gap-y-10 sm:mt-16 sm:gap-y-14 md:grid-cols-2 lg:grid-cols-3">
           {features.map(({ icon: Icon, title, text }, index) => (
@@ -313,7 +313,7 @@ function Index() {
         </div>
       </section>
 
-      <section className="section-space mx-auto max-w-7xl px-5 lg:px-10">
+      <section className="section-space relative z-10 mx-auto max-w-7xl px-5 lg:px-10">
         <Reveal><SectionHeading label="Client notes" title="Quiet confidence, shared." /></Reveal>
         <div className="mt-16">
           {testimonials.map(([quote, name], index) => (
@@ -325,7 +325,7 @@ function Index() {
         </div>
       </section>
 
-      <section id="about" className="section-space mx-auto grid max-w-7xl gap-12 px-5 lg:grid-cols-[0.8fr_1.2fr] lg:px-10">
+      <section id="about" className="section-space relative z-10 mx-auto grid max-w-7xl gap-12 px-5 lg:grid-cols-[0.8fr_1.2fr] lg:px-10">
         <Reveal><SectionHeading label="About us" title="Style with a point of view." /></Reveal>
         <Reveal className="space-y-7 text-lg leading-8 text-muted-foreground lg:pt-9">
           <p>Zeyoorh.ng was created for men who see clothing as more than appearance. We bring together Northern tradition and a modern eye, selecting pieces that feel grounded, refined and distinctly personal.</p>
@@ -333,7 +333,7 @@ function Index() {
         </Reveal>
       </section>
 
-      <section id="faq" className="section-space mx-auto grid max-w-7xl gap-12 px-5 lg:grid-cols-[0.8fr_1.2fr] lg:px-10">
+      <section id="faq" className="section-space relative z-10 mx-auto grid max-w-7xl gap-12 px-5 lg:grid-cols-[0.8fr_1.2fr] lg:px-10">
         <Reveal><SectionHeading label="Questions" title="Everything you need to know." /></Reveal>
         <Reveal>
           <Accordion type="single" collapsible className="border-t border-border">
@@ -347,7 +347,7 @@ function Index() {
         </Reveal>
       </section>
 
-      <section className="section-space mx-auto max-w-5xl px-5 text-center lg:px-10">
+      <section className="section-space relative z-10 mx-auto max-w-5xl px-5 text-center lg:px-10">
         <Reveal>
           <Star className="mx-auto size-5 text-primary" fill="currentColor" />
           <h2 className="mt-7 font-display text-5xl font-semibold leading-none md:text-7xl">Your next signature piece is waiting.</h2>
@@ -360,7 +360,7 @@ function Index() {
         </Reveal>
       </section>
 
-      <footer className="border-t border-border px-5 py-10 lg:px-10">
+      <footer className="relative z-10 border-t border-border px-5 py-10 lg:px-10">
         <div className="mx-auto flex max-w-7xl flex-col gap-7 md:flex-row md:items-center md:justify-between">
           <div><a href="#top" className="font-display text-2xl font-semibold">Zeyoorh<span className="text-primary">.ng</span></a><p className="mt-2 text-xs text-muted-foreground">© 2026 Zeyoorh.ng. All rights reserved.</p></div>
           <div className="flex flex-wrap gap-x-7 gap-y-3 text-sm text-muted-foreground"><a className="nav-link" href="#categories">Categories</a><a className="nav-link" href="#about">About</a><a className="nav-link" href="#faq">FAQ</a><a className="nav-link" href={instagramHref} target="_blank" rel="noreferrer">Instagram</a><a className="nav-link" href={whatsappHref} target="_blank" rel="noreferrer">WhatsApp</a></div>

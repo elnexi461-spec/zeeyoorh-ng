@@ -206,6 +206,31 @@
   pointer-events: auto;
 }
 
+.page-background-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0;
+  transform: scale(1.06);
+  filter: saturate(0.82) contrast(1.04);
+  transition: opacity 1100ms ease, transform 5200ms ease-out;
+  will-change: opacity, transform;
+}
+
+.page-background-slide.is-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.page-background-veil {
+  background:
+    linear-gradient(180deg, color-mix(in oklab, var(--color-background) 58%, transparent) 0%, color-mix(in oklab, var(--color-background) 76%, transparent) 42%, color-mix(in oklab, var(--color-background) 88%, transparent) 100%),
+    linear-gradient(90deg, color-mix(in oklab, var(--color-background) 54%, transparent), color-mix(in oklab, var(--color-background) 22%, transparent), color-mix(in oklab, var(--color-background) 54%, transparent));
+}
+
 .category-enter { animation: category-in 420ms ease both; }
 
 @keyframes category-in {
@@ -221,5 +246,5 @@
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .reveal, .reveal.is-visible, .reveal.is-leaving-up, .reveal.is-leaving-down, .category-enter { opacity: 1; transform: none; transition: none; animation: none; }
-  .fade-slide { transition: none; }
+  .fade-slide, .page-background-slide { transition: none; }
 }
