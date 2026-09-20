@@ -180,11 +180,31 @@
 
 .reveal {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 700ms ease, transform 700ms cubic-bezier(.2,.75,.3,1);
+  transform: translateY(32px);
+  transition: opacity 800ms ease, transform 800ms cubic-bezier(.2,.75,.3,1);
+  will-change: opacity, transform;
 }
 
 .reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+/* fade back out when the element leaves the viewport (either direction) */
+.reveal.is-leaving-up { opacity: 0; transform: translateY(-24px); }
+.reveal.is-leaving-down { opacity: 0; transform: translateY(32px); }
+
+.fade-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: scale(1.05);
+  transition: opacity 1100ms ease, transform 5200ms ease-out;
+  pointer-events: none;
+}
+
+.fade-slide.is-active {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
 
 .category-enter { animation: category-in 420ms ease both; }
 
@@ -200,5 +220,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .reveal, .reveal.is-visible, .category-enter { opacity: 1; transform: none; transition: none; animation: none; }
+  .reveal, .reveal.is-visible, .reveal.is-leaving-up, .reveal.is-leaving-down, .category-enter { opacity: 1; transform: none; transition: none; animation: none; }
+  .fade-slide { transition: none; }
 }

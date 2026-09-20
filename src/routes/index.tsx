@@ -30,6 +30,16 @@ import shoeGreyAsset from "@/assets/IMG_0515.PNG.asset.json";
 import capBlueAsset from "@/assets/18C79ADB-985B-4D54-A78E-0218233F5BB8.JPG.asset.json";
 import capWhiteAsset from "@/assets/8DFE5BE1-E1CB-45A0-8346-6433990605BB.JPG.asset.json";
 import capSizeAsset from "@/assets/D7598292-141C-40CF-9134-E4E9969509E8.JPG.asset.json";
+import shirtWhiteAsset from "@/assets/IMG_0401.PNG.asset.json";
+import shirtGreyAsset from "@/assets/IMG_0402.PNG.asset.json";
+import shirtStripeAsset from "@/assets/IMG_0399.PNG.asset.json";
+import shirtPlumAsset from "@/assets/IMG_0404.PNG.asset.json";
+import watchPairAsset from "@/assets/3205712d-242e-41d8-af2a-a50de65eb389.jpg.asset.json";
+import watchSquareAsset from "@/assets/6a129338-ddda-4adb-bffc-ec41c723d1e3.jpg.asset.json";
+import watchGreenAsset from "@/assets/9fd628a5-6a70-410f-9e9b-98fffb3a0213.jpg.asset.json";
+import shaddaGoldAsset from "@/assets/IMG-20260223-WA0101.JPG.asset.json";
+import shaddaGreyAsset from "@/assets/IMG-20260223-WA0097.JPG.asset.json";
+import shaddaWhiteAsset from "@/assets/IMG-20260223-WA0102.JPG.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -61,9 +71,13 @@ const categories: Record<
   Clothing: {
     eyebrow: "Precision tailoring",
     description:
-      "Refined kaftans and premium fabrics selected for presence, comfort and an impeccable finish.",
+      "Refined kaftans, mandarin-collar shirts and premium fabrics selected for presence, comfort and an impeccable finish.",
     images: [
       { src: manAsset.url, alt: "Man wearing a white traditional outfit and patterned native cap" },
+      { src: shirtWhiteAsset.url, alt: "White pinstripe mandarin-collar shirt on a tailor's form" },
+      { src: shirtGreyAsset.url, alt: "Grey pinstripe mandarin-collar shirt on a tailor's form" },
+      { src: shirtStripeAsset.url, alt: "Striped mandarin-collar shirt on a tailor's form" },
+      { src: shirtPlumAsset.url, alt: "Plum ribbed mandarin-collar shirt on a tailor's form" },
       { src: whiteFabricAsset.url, alt: "Premium white fabric arranged in soft folds" },
       { src: taupeFabricAsset.url, alt: "Premium taupe fabric arranged in soft folds" },
       { src: blackFabricAsset.url, alt: "Premium black fabric arranged in soft folds" },
@@ -80,11 +94,14 @@ const categories: Record<
     ],
   },
   Watches: {
-    eyebrow: "Coming to the collection",
+    eyebrow: "Measured in moments",
     description:
-      "A considered edit of timepieces is being prepared. Original collection photography will be added soon.",
-    images: [],
-    pending: true,
+      "Steel timepieces with clean dials and quiet weight, chosen to finish an outfit without shouting.",
+    images: [
+      { src: watchPairAsset.url, alt: "Blue and black dial steel watches presented in a gift box" },
+      { src: watchGreenAsset.url, alt: "Green dial steel watch presented in a branded box" },
+      { src: watchSquareAsset.url, alt: "Square-case steel watch with a white roman dial" },
+    ],
   },
   "Native Caps": {
     eyebrow: "The finishing signature",
@@ -100,8 +117,11 @@ const categories: Record<
     eyebrow: "Exceptional cloth",
     description:
       "Richly patterned Shadda selected for its hand, lustre and unmistakable ceremonial presence.",
-    images: [],
-    pending: true,
+    images: [
+      { src: shaddaGoldAsset.url, alt: "Gold patterned Shadda fabric folded on display" },
+      { src: shaddaWhiteAsset.url, alt: "White patterned Shadda fabric folded on display" },
+      { src: shaddaGreyAsset.url, alt: "Soft grey patterned Shadda fabric folded on display" },
+    ],
   },
 };
 
@@ -136,6 +156,46 @@ function Reveal({ children, className = "", delay = 0 }: { children: React.React
   );
 }
 
+function CategoryShowcase({ images }: { images: { src: string; alt: string }[] }) {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    if (images.length < 2) return;
+    const id = window.setInterval(() => setIndex((i) => (i + 1) % images.length), 3600);
+    return () => window.clearInterval(id);
+  }, [images.length]);
+
+  return (
+    <div className="mt-14">
+      <div className="relative aspect-[4/5] w-full overflow-hidden sm:aspect-[16/10]">
+        {images.map((image, i) => (
+          <img
+            key={image.src}
+            src={image.src}
+            alt={image.alt}
+            loading={i === 0 ? "eager" : "lazy"}
+            className={`fade-slide h-full w-full object-cover ${i === index ? "is-active" : ""}`}
+          />
+        ))}
+      </div>
+      <div className="mt-6 flex flex-wrap items-center gap-3">
+        {images.map((image, i) => (
+          <button
+            key={image.src}
+            type="button"
+            aria-label={image.alt}
+            onClick={() => setIndex(i)}
+            className={`h-px w-10 transition-all duration-500 ${i === index ? "bg-primary w-16" : "bg-border"}`}
+          />
+        ))}
+        <p className="ml-auto text-xs uppercase tracking-[0.18em] text-muted-foreground">
+          {String(index + 1).padStart(2, "0")} / {String(images.length).padStart(2, "0")}
+        </p>
+      </div>
+    </div>
+  );
+}
+
 function Index() {
   const [activeCategory, setActiveCategory] = useState<CategoryKey>("Clothing");
   const category = categories[activeCategory];
@@ -143,12 +203,23 @@ function Index() {
   useEffect(() => {
     const nodes = document.querySelectorAll<HTMLElement>(".reveal");
     const observer = new IntersectionObserver(
-      (entries) => entries.forEach((entry) => entry.isIntersecting && entry.target.classList.add("is-visible")),
-      { threshold: 0.13 },
+      (entries) =>
+        entries.forEach((entry) => {
+          const el = entry.target as HTMLElement;
+          el.classList.remove("is-leaving-up", "is-leaving-down");
+          if (entry.isIntersecting) {
+            el.classList.add("is-visible");
+            return;
+          }
+          el.classList.remove("is-visible");
+          const above = entry.boundingClientRect.top < 0;
+          el.classList.add(above ? "is-leaving-up" : "is-leaving-down");
+        }),
+      { threshold: 0.12, rootMargin: "-6% 0px -6% 0px" },
     );
     nodes.forEach((node) => observer.observe(node));
     return () => observer.disconnect();
-  }, []);
+  }, [activeCategory]);
 
   const whatsappHref = "https://wa.me/";
   const instagramHref = "https://instagram.com/";
@@ -222,17 +293,11 @@ function Index() {
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">{category.eyebrow}</p>
           <p className="mt-4 max-w-2xl font-display text-3xl leading-tight text-foreground md:text-4xl">{category.description}</p>
           {category.pending ? (
-            <div className="mt-16 flex min-h-72 items-center justify-center border-y border-border text-center">
-              <div><Sparkles className="mx-auto size-5 text-primary" /><p className="mt-5 font-display text-3xl">Collection photography arriving soon.</p><p className="mt-3 text-sm text-muted-foreground">The selection is being prepared with care.</p></div>
+            <div className="mt-20 flex min-h-72 items-center justify-center border-y border-border px-6 py-16 text-center">
+              <div><Sparkles className="mx-auto size-5 text-primary" /><p className="mt-6 font-display text-3xl">Collection photography arriving soon.</p><p className="mt-4 text-sm text-muted-foreground">The selection is being prepared with care.</p></div>
             </div>
           ) : (
-            <div className={`mt-12 grid gap-3 ${category.images.length === 4 ? "grid-cols-2 lg:grid-cols-4" : "grid-cols-2 md:grid-cols-3"}`}>
-              {category.images.map((image, index) => (
-                <figure key={image.src} className={`${index === 0 && category.images.length === 3 ? "col-span-2 md:col-span-1" : ""} overflow-hidden`}>
-                  <img src={image.src} alt={image.alt} className="aspect-[4/5] h-full w-full object-cover transition-transform duration-700 hover:scale-[1.02]" loading="lazy" />
-                </figure>
-              ))}
-            </div>
+            <CategoryShowcase key={activeCategory} images={category.images} />
           )}
         </div>
       </section>
