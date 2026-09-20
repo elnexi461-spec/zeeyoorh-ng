@@ -253,17 +253,11 @@ function Index() {
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">{category.eyebrow}</p>
           <p className="mt-4 max-w-2xl font-display text-3xl leading-tight text-foreground md:text-4xl">{category.description}</p>
           {category.pending ? (
-            <div className="mt-16 flex min-h-72 items-center justify-center border-y border-border text-center">
-              <div><Sparkles className="mx-auto size-5 text-primary" /><p className="mt-5 font-display text-3xl">Collection photography arriving soon.</p><p className="mt-3 text-sm text-muted-foreground">The selection is being prepared with care.</p></div>
+            <div className="mt-20 flex min-h-72 items-center justify-center border-y border-border px-6 py-16 text-center">
+              <div><Sparkles className="mx-auto size-5 text-primary" /><p className="mt-6 font-display text-3xl">Collection photography arriving soon.</p><p className="mt-4 text-sm text-muted-foreground">The selection is being prepared with care.</p></div>
             </div>
           ) : (
-            <div className={`mt-12 grid gap-3 ${category.images.length === 4 ? "grid-cols-2 lg:grid-cols-4" : "grid-cols-2 md:grid-cols-3"}`}>
-              {category.images.map((image, index) => (
-                <figure key={image.src} className={`${index === 0 && category.images.length === 3 ? "col-span-2 md:col-span-1" : ""} overflow-hidden`}>
-                  <img src={image.src} alt={image.alt} className="aspect-[4/5] h-full w-full object-cover transition-transform duration-700 hover:scale-[1.02]" loading="lazy" />
-                </figure>
-              ))}
-            </div>
+            <CategoryShowcase key={activeCategory} images={category.images} />
           )}
         </div>
       </section>
