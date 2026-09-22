@@ -6,9 +6,9 @@ import { InfoPage } from "@/components/info-page";
 export const Route = createFileRoute("/about")({
   head: () => ({ meta: [
     { title: "About Us — Zeyoorh.ng" },
-    { name: "description", content: "Discover the story and personal service behind Zeyoorh.ng." },
+    { name: "description", content: "Meet Zeyoorh.ng and learn how we help Northern Nigerian men find the right style." },
     { property: "og:title", content: "About Us — Zeyoorh.ng" },
-    { property: "og:description", content: "Northern tradition, a modern eye, and attentive personal service." },
+    { property: "og:description", content: "Quality Northern style with friendly, personal service." },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary_large_image" },
   ] }),
@@ -17,17 +17,17 @@ export const Route = createFileRoute("/about")({
 
 function About() {
   const principles = [
-    { icon: Gem, title: "Curated quality", text: "Every piece is considered for its finish, feel, and lasting appeal." },
-    { icon: ShieldCheck, title: "Trusted sourcing", text: "Selections come from dependable makers and established suppliers." },
-    { icon: MessageCircle, title: "Personal service", text: "Real assistance guides you from first selection through fulfilment." },
+    { icon: Gem, title: "Good quality", text: "We choose pieces that look good, feel comfortable and last." },
+    { icon: ShieldCheck, title: "People you can trust", text: "We work with reliable makers and sellers." },
+    { icon: MessageCircle, title: "Help made for you", text: "We listen to what you want and help you choose from start to finish." },
   ];
 
   return (
-    <InfoPage eyebrow="About us" title="Style with a point of view." intro="Zeyoorh.ng was created for men who see clothing as more than appearance.">
+    <InfoPage eyebrow="About us" title="Northern style that fits who you are." intro="Zeyoorh.ng helps men look confident for every important moment.">
       <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
         <div className="space-y-7 font-display text-2xl leading-relaxed sm:text-3xl">
-          <p>We bring together Northern tradition and a modern eye, selecting pieces that feel grounded, refined, and distinctly personal.</p>
-          <p>Our collection stays focused so our service can stay attentive. Every recommendation begins with your taste and ends with something you will wear with confidence.</p>
+          <p>We bring Northern tradition and modern style together. From clothing and caps to shoes and watches, we choose pieces that make you look sharp.</p>
+          <p>You do not have to choose alone. Tell us your event, style and budget. We will help you find something you will wear with confidence.</p>
         </div>
         <div className="divide-y divide-border border-t border-border">
           {principles.map(({ icon: Icon, title, text }) => (

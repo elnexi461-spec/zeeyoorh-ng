@@ -10,9 +10,9 @@ export const Route = createFileRoute("/gallery")({
   head: () => ({
     meta: [
       { title: "Collection Gallery — Zeyoorh.ng" },
-      { name: "description", content: "Browse Zeyoorh.ng clothing, shoes, watches, native caps and Shadda." },
+      { name: "description", content: "Choose from Zeyoorh.ng clothing, shoes, watches, native caps and Shadda." },
       { property: "og:title", content: "Collection Gallery — Zeyoorh.ng" },
-      { property: "og:description", content: "Explore selected Northern menswear and accessories from Zeyoorh.ng." },
+      { property: "og:description", content: "Find your next Northern outfit or accessory and order directly from Zeyoorh.ng." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -31,9 +31,9 @@ function Gallery() {
       <SiteHeader />
 
       <section className="mx-auto max-w-7xl px-5 pb-12 pt-12 lg:px-10 lg:pt-20">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">The collection</p>
-        <h1 className="mt-4 max-w-3xl font-display text-5xl font-semibold leading-none md:text-7xl">Choose your signature piece.</h1>
-        <p className="mt-5 max-w-xl leading-7 text-muted-foreground">Select a category, explore the available styles, and message us about the piece that catches your eye.</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">Our collection</p>
+        <h1 className="mt-4 max-w-3xl font-display text-5xl font-semibold leading-none md:text-7xl">Choose what looks good on you.</h1>
+        <p className="mt-5 max-w-xl leading-7 text-muted-foreground">Pick a category and check the styles. Tap any picture you like, then message us to order or ask a question.</p>
 
         <div role="tablist" aria-label="Product categories" className="mt-9 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap">
           {categoryKeys.map((name) => (
@@ -82,7 +82,7 @@ function Gallery() {
             <div className="mt-5 flex flex-wrap items-center justify-between gap-4">
               <p className="font-display text-2xl">{selectedImage.alt}</p>
               <Button asChild className="rounded-full px-6">
-                <a href={whatsappHref} target="_blank" rel="noreferrer"><MessageCircle />Ask about this piece</a>
+                <a href={whatsappHref} target="_blank" rel="noreferrer"><MessageCircle />Order on WhatsApp</a>
               </Button>
             </div>
           </div>

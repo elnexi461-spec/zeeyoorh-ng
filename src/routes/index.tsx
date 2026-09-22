@@ -14,16 +14,16 @@ import { allCatalogImages } from "@/lib/catalog";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Zeyoorh.ng — Curated Northern Style" },
+      { title: "Zeyoorh.ng — Northern Style Made for You" },
       {
         name: "description",
         content:
-          "Exclusive Northern Nigerian clothing, slides, watches, native caps and Shadda, carefully sourced for men of distinction.",
+          "Shop quality Northern Nigerian clothing, shoes, watches, native caps and Shadda with personal help from Zeyoorh.ng.",
       },
-      { property: "og:title", content: "Zeyoorh.ng — Curated Northern Style" },
+      { property: "og:title", content: "Zeyoorh.ng — Northern Style Made for You" },
       {
         property: "og:description",
-        content: "Distinctive menswear and accessories, personally sourced for a select clientele.",
+        content: "Choose the right outfit and accessories with friendly, personal help from Zeyoorh.ng.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -105,33 +105,33 @@ function Index() {
         <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-16 pt-32 lg:px-10 lg:pb-20">
           <div className="max-w-3xl">
             <div className="mb-7 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-primary">
-              <span className="size-1.5 rounded-full bg-primary" /> Limited Spots Available
+               <span className="size-1.5 rounded-full bg-primary" /> Private Style Meetings Available
             </div>
-            <h1 className="font-display text-6xl font-semibold leading-[0.88] md:text-8xl lg:text-[7rem]">Dress with<br /><span className="italic text-primary">distinction.</span></h1>
-            <p className="mt-7 max-w-xl text-base leading-7 text-muted-foreground md:text-lg">A private edit of exceptional Northern menswear and accessories, personally sourced for men who choose substance over noise.</p>
+             <h1 className="font-display text-6xl font-semibold leading-[0.88] md:text-8xl lg:text-[7rem]">Look your best.<br /><span className="italic text-primary">Own the moment.</span></h1>
+             <p className="mt-7 max-w-xl text-base leading-7 text-muted-foreground md:text-lg">Quality Northern clothing, caps, shoes and watches for men who want to stand out. Tell us what you need and we will help you choose the right look.</p>
             <div className="mt-9 flex flex-wrap gap-3">
               <Button asChild size="lg" className="h-13 rounded-full px-7 shadow-none transition-transform hover:scale-[1.03]">
-                <a href={whatsappHref} target="_blank" rel="noreferrer"><MessageCircle />WhatsApp us</a>
+                 <a href={whatsappHref} target="_blank" rel="noreferrer"><MessageCircle />Book a Meeting</a>
               </Button>
               <Button asChild size="lg" variant="outline" className="h-13 rounded-full border-border bg-transparent px-7 shadow-none transition-transform hover:scale-[1.03] hover:bg-foreground hover:text-background">
-                <a href={instagramHref} target="_blank" rel="noreferrer"><Instagram />View Instagram</a>
+                 <a href={instagramHref} target="_blank" rel="noreferrer"><Instagram />See Instagram</a>
               </Button>
               <Button asChild size="lg" variant="secondary" className="h-13 rounded-full border border-primary/60 px-7 shadow-none transition-transform hover:scale-[1.03]">
-                <Link to="/gallery"><Images />View Gallery</Link>
+                 <Link to="/gallery"><Images />Shop the Gallery</Link>
               </Button>
             </div>
           </div>
         </div>
-        <a href="#how" aria-label="Scroll to how it works" className="absolute bottom-7 right-6 z-20 hidden items-center gap-2 text-xs uppercase tracking-widest text-muted-foreground md:flex">Discover <ArrowDownRight className="size-4" /></a>
+         <a href="#how" aria-label="See how it works" className="absolute bottom-7 right-6 z-20 hidden items-center gap-2 text-xs uppercase tracking-widest text-muted-foreground md:flex">How it works <ArrowDownRight className="size-4" /></a>
       </section>
 
       <section id="how" className="section-space relative z-10 mx-auto max-w-7xl px-5 lg:px-10">
-        <Reveal><SectionHeading label="The process" title="Personal from first word to final detail." /></Reveal>
+         <Reveal><SectionHeading label="How it works" title="Your perfect look in three easy steps." /></Reveal>
         <div className="mt-10 grid gap-8 sm:mt-16 md:grid-cols-3 md:gap-10">
           {[
-            ["01", "Share your taste", "Tell us the occasion, your preferences and what you want your wardrobe to say."],
-            ["02", "Receive a private edit", "We narrow the collection to considered pieces selected specifically for you."],
-            ["03", "Confirm with confidence", "Choose your favourites, confirm fit and delivery, then leave the details to us."],
+             ["01", "Tell us what you need", "Message us about your event, your size and the style you like."],
+             ["02", "We help you choose", "We will show you the best pieces for your style and budget."],
+             ["03", "Order with confidence", "Choose your favourite, confirm payment and delivery, and we will handle the rest."],
           ].map(([number, title, text], index) => (
             <Reveal key={number} delay={index * 140} className="border-t border-border pt-6">
               <span className="text-xs tracking-[0.2em] text-primary">{number}</span>
@@ -144,9 +144,9 @@ function Index() {
 
       <section id="categories" className="section-space relative z-10 mx-auto max-w-7xl px-5 lg:px-10">
         <Reveal>
-          <SectionHeading label="The collection" title="The essentials, considered." description="Explore clothing, shoes, watches, native caps and Shadda, then select the piece you want to ask about." />
+           <SectionHeading label="Shop our collection" title="Find the look made for you." description="See our clothing, shoes, watches, native caps and Shadda. Choose what you like, then message us to order or book a private meeting." />
           <Button asChild size="lg" className="mt-8 h-14 rounded-full px-8 text-sm uppercase tracking-widest shadow-none transition-transform hover:scale-[1.03]">
-            <Link to="/gallery"><Images />Open the Gallery</Link>
+             <Link to="/gallery"><Images />Shop the Gallery</Link>
           </Button>
         </Reveal>
       </section>
