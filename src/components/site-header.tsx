@@ -9,7 +9,7 @@ const navigation = [
   { label: "Gallery", to: "/gallery" as const, number: "02" },
   { label: "About Us", to: "/about" as const, number: "03" },
   { label: "FAQ", to: "/faq" as const, number: "04" },
-  { label: "Rules", to: "/rules" as const, number: "05" },
+  { label: "How to Order", to: "/rules" as const, number: "05" },
 ];
 
 export function SiteHeader({ transparent = false }: { transparent?: boolean }) {

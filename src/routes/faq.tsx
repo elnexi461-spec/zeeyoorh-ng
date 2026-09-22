@@ -4,11 +4,11 @@ import { InfoPage } from "@/components/info-page";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const faqs = [
-  ["How do I place an order?", "Send us a message on WhatsApp or Instagram with the item you are interested in. We will confirm availability, sizing, and delivery details personally."],
-  ["Do you deliver across Nigeria?", "Yes. We arrange delivery across Nigeria, with timing and cost confirmed before your order is completed."],
-  ["Can you help me choose the right size?", "Absolutely. Share your measurements or usual size and we will guide you toward the best fit for the selected piece."],
-  ["Are all items always available?", "Our collection is intentionally limited. Availability changes, but we can suggest the closest alternative or source a suitable piece."],
-  ["Can I request something not shown here?", "Yes. Tell us what you are looking for and we will let you know whether a personal sourcing request is possible."],
+  ["How do I order?", "Tap the picture you like and send us a WhatsApp message. We will confirm the price, size, availability and delivery with you."],
+  ["Do you deliver across Nigeria?", "Yes. We deliver across Nigeria. We will tell you the delivery time and cost before you pay."],
+  ["Can you help me choose my size?", "Yes. Send your measurements or the size you normally wear. We will help you choose the best fit."],
+  ["Is everything in stock?", "Some items are limited and may sell out. If your choice is not available, we will show you a good alternative."],
+  ["Can I ask for something not in the gallery?", "Yes. Send us a picture or explain what you want. We will tell you if we can find it for you."],
 ];
 
 export const Route = createFileRoute("/faq")({
@@ -25,7 +25,7 @@ export const Route = createFileRoute("/faq")({
 
 function Faq() {
   return (
-    <InfoPage eyebrow="Questions" title="Everything you need to know." intro="Clear answers before you make your selection. For anything more specific, message us directly.">
+    <InfoPage eyebrow="Questions" title="Quick answers before you order." intro="We have answered the common questions below. If you need more help, send us a WhatsApp message.">
       <Accordion type="single" collapsible className="mx-auto max-w-4xl border-t border-border">
         {faqs.map(([question, answer], index) => (
           <AccordionItem value={`item-${index}`} key={question} className="border-border">

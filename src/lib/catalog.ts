@@ -26,8 +26,8 @@ export const categories: Record<
   { eyebrow: string; description: string; images: CatalogImage[] }
 > = {
   Clothing: {
-    eyebrow: "Precision tailoring",
-    description: "Refined shirts and premium fabrics selected for presence, comfort and an impeccable finish.",
+    eyebrow: "Clothing",
+    description: "Quality shirts and fabrics that help you look sharp and feel comfortable.",
     images: [
       { src: shirtWhiteAsset.url, alt: "White pinstripe mandarin-collar shirt" },
       { src: shirtGreyAsset.url, alt: "Grey pinstripe mandarin-collar shirt" },
@@ -39,8 +39,8 @@ export const categories: Record<
     ],
   },
   Shoes: {
-    eyebrow: "Everyday distinction",
-    description: "Statement slides chosen for effortless comfort, strong silhouettes and a confident finish.",
+    eyebrow: "Shoes",
+    description: "Comfortable shoes and slides that complete your look.",
     images: [
       { src: shoeBlueAsset.url, alt: "Blue luxury slide" },
       { src: shoeGreyAsset.url, alt: "Grey luxury slide" },
@@ -48,8 +48,8 @@ export const categories: Record<
     ],
   },
   Watches: {
-    eyebrow: "Measured in moments",
-    description: "Steel timepieces with clean dials and quiet weight, chosen to finish an outfit without shouting.",
+    eyebrow: "Watches",
+    description: "Clean, stylish watches for daily wear and special occasions.",
     images: [
       { src: watchPairAsset.url, alt: "Blue and black dial steel watches" },
       { src: watchGreenAsset.url, alt: "Green dial steel watch" },
@@ -57,8 +57,8 @@ export const categories: Record<
     ],
   },
   "Native Caps": {
-    eyebrow: "The finishing signature",
-    description: "Crisp, structured caps in classic and expressive colours, measured for a composed fit.",
+    eyebrow: "Native caps",
+    description: "Well-made caps in strong colours to finish your traditional look.",
     images: [
       { src: capWhiteAsset.url, alt: "White native caps on gold head forms" },
       { src: capBlueAsset.url, alt: "Blue native caps on gold head forms" },
@@ -66,8 +66,8 @@ export const categories: Record<
     ],
   },
   Shadda: {
-    eyebrow: "Exceptional cloth",
-    description: "Richly patterned Shadda selected for its hand, lustre and unmistakable ceremonial presence.",
+    eyebrow: "Shadda",
+    description: "Beautiful Shadda fabrics chosen to give you a rich, confident look.",
     images: [
       { src: shaddaGoldAsset.url, alt: "Gold patterned Shadda fabric" },
       { src: shaddaWhiteAsset.url, alt: "White patterned Shadda fabric" },
