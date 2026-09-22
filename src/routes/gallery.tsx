@@ -1,8 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, MessageCircle, X } from "lucide-react";
+import { MessageCircle, X } from "lucide-react";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { SiteHeader } from "@/components/site-header";
 import { categories, categoryKeys, type CatalogImage, type CategoryKey } from "@/lib/catalog";
 
 export const Route = createFileRoute("/gallery")({
@@ -27,17 +28,7 @@ function Gallery() {
 
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <header className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur-xl">
-        <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-5 lg:px-10">
-          <Button asChild variant="ghost" size="icon" className="rounded-full" aria-label="Back to home">
-            <Link to="/"><ArrowLeft /></Link>
-          </Button>
-          <Link to="/" className="font-display text-2xl font-semibold">Zeyoorh<span className="text-primary">.ng</span></Link>
-          <Button asChild variant="outline" className="rounded-full bg-transparent px-4 text-xs uppercase tracking-widest">
-            <a href={whatsappHref} target="_blank" rel="noreferrer">Enquire</a>
-          </Button>
-        </div>
-      </header>
+      <SiteHeader />
 
       <section className="mx-auto max-w-7xl px-5 pb-12 pt-12 lg:px-10 lg:pt-20">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">The collection</p>
